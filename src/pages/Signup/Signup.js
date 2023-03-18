@@ -5,8 +5,9 @@ import { AuthContext } from '../../contexts/AuthProvider';
 import PrimaryButton from '../../Shared/Buttons/PrimaryButton';
 
 const Signup = () => {
-    const { createUser, updateUser, verifyEmail, user, setUser } = useContext(AuthContext)
-    console.log("url", process.env.REACT_APP_IMAGEBB_API);
+    const { createUser, updateUser, verifyEmail, user, setUser } = useContext(AuthContext)  
+    console.log(user)
+    console.log(process.env)
     const signUpHandler = (event) => {
         event.preventDefault()
         const name = event.target.name.value
@@ -38,7 +39,7 @@ const Signup = () => {
                         updateUser(name, photoUrl)
                             .then(res => {
                                 console.log(res)
-
+                                setUser(result.user)
                                 //email verification
                                 verifyEmail().then(()=>{
                                     toast.success("check your email for verification")

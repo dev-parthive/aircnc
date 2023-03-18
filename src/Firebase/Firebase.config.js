@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD2GGCOiBMFYDQF6Z-E4EfuDO3WKrZLt24",
-  authDomain: "aircnc-6ce03.firebaseapp.com",
-  projectId: "aircnc-6ce03",
-  storageBucket: "aircnc-6ce03.appspot.com",
-  messagingSenderId: "378883874784",
-  appId: "1:378883874784:web:0c39cf7f851e139d60d585"
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  projectId:  process.env.REACT_APP_projectId,
+  storageBucket:  process.env.REACT_APP_storageBucket,
+  messagingSenderId:  process.env.REACT_APP_appId,
+  appId:  process.env.REACT_APP_IMAGEBB_API
 };
 
 // Initialize Firebase
