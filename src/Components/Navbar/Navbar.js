@@ -1,13 +1,24 @@
 import React, { useContext, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import PrimaryButton from '../../Shared/Buttons/PrimaryButton';
 
 const Navbar = () => {
-    const {user} = useContext(AuthContext)
+    const {user, logout} = useContext(AuthContext)
     console.log(user);
     const [isDropdownOpen, setIsDropDownOpen] = useState(false)
     console.log(isDropdownOpen);
+    //logout 
+    const handleSignOut = ()=>{
+        logout()
+        .then(()=>{
+            toast.success('Logout successfull')
+        })
+        .cath(err =>{
+            toast.error(err.message)
+        })
+    }
     return (
         <header className='text-gray-900 shadow-sm'>
             <div className='mx-auto flex flex-wrap py-5 px-20 flex-col md:flex-row items-center'>
@@ -53,7 +64,7 @@ const Navbar = () => {
                                             </Link>
                                             <hr className='border-gray-200' />
 
-                                            <div className='flex items-center p-3 text-sm text-gray-600 capitalize
+                                            <div onClick={handleSignOut} className='flex items-center p-3 text-sm text-gray-600 capitalize
                                              duration-200 transform
                                               hover:bg-gray-100
                                               '>

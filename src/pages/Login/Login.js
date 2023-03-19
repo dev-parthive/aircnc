@@ -1,8 +1,51 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 import PrimaryButton from '../../Shared/Buttons/PrimaryButton';
 
 const Login = () => {
+    const {login, signInWithGoogle, signInWithGithub}  = useContext(AuthContext)
+    //login using google 
+    const handleGoogleLogin = () =>{
+        signInWithGoogle()
+        .then(res=> {
+            console.log(res.user);
+            toast.success(`Welcome ${res?.user?.displayName}`)
+        })
+        .catch(err =>{
+            console.log(err.message)
+            toast.error(err.message)
+        })
+    }
+    //github signIn 
+    const handleGithubSignIn = () => {
+        signInWithGithub()
+        .then( res => {
+            toast.success(`welcome ${res?.user?.displayName}`)
+            console.log(res.user)
+        })
+        .catch(err =>{
+            console.log(err.message)
+            toast.error(err.message)
+        })
+    }
+    //login
+    const handleLogin = (event)=>{
+        event.preventDefault()
+        const email = event.target.email.value
+        const password= event.target.password.value
+        console.log(email, password);
+        login(email, password)
+        .then(res => {
+            console.log(res.user)
+            toast.success("Login successfull")
+
+        })
+        .catch(err => {
+            toast.error(err.message)
+        })
+    }
     return (
         <div className='flex justify-center pt-8'>
             <div className='flex flex-col max-w-md p-6 
@@ -12,6 +55,7 @@ const Login = () => {
                     <p className='text-sm text-gray-400'>Login to access your account</p>
                 </div>
                 <form action=""
+                onSubmit={handleLogin}
                     className='space-y-6 '>
                     <div className='space-y-4'>
                         <div>
@@ -56,7 +100,7 @@ const Login = () => {
                     dark:bg-gray-700'></div>
                 </div>
                 <div className='flex justify-center space-x-4'>
-                    <button aria-label='Log in with Google' className='p-3 rounded-sm'>
+                    <button onClick={handleGoogleLogin} aria-label='Log in with Google' className='p-3 rounded-sm'>
                     <svg
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 32 32'
@@ -66,7 +110,7 @@ const Login = () => {
             </svg>
                     </button>
 
-                <button aria-label='Log in with Github'
+                <button onClick={handleGithubSignIn} aria-label='Log in with Github'
                 className='p-3 rounded-sm'>
                     <svg
               xmlns='http://www.w3.org/2000/svg'
