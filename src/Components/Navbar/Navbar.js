@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import PrimaryButton from '../../Shared/Buttons/PrimaryButton';
 
@@ -9,16 +9,20 @@ const Navbar = () => {
     console.log(user);
     const [isDropdownOpen, setIsDropDownOpen] = useState(false)
     console.log(isDropdownOpen);
+    const navigate = useNavigate()
+
     //logout 
     const handleSignOut = ()=>{
         logout()
         .then(()=>{
             toast.success('Logout successfull')
+            navigate('/login')
         })
         .cath(err =>{
             toast.error(err.message)
         })
     }
+
     return (
         <header className='text-gray-900 shadow-sm'>
             <div className='mx-auto flex flex-wrap py-5 px-20 flex-col md:flex-row items-center'>
@@ -27,7 +31,7 @@ const Navbar = () => {
                 </Link>
                 <nav className='md:ml-auto flex flex-wrap items-center text-base justify-center'>
                 {
-                    user?.email ? (
+                    user?.email || user?.displayName? (
                         <>
                         <div className='relative inline-block'>
                             <button onClick={()=>setIsDropDownOpen(!isDropdownOpen)} 
@@ -64,7 +68,7 @@ const Navbar = () => {
                                             </Link>
                                             <hr className='border-gray-200' />
 
-                                            <div onClick={handleSignOut} className='flex items-center p-3 text-sm text-gray-600 capitalize
+                                            <div onClick={()=>{ handleSignOut();setIsDropDownOpen(!isDropdownOpen); console.log("sign out button is clicked")}} className='flex items-center p-3 text-sm text-gray-600 capitalize
                                              duration-200 transform
                                               hover:bg-gray-100
                                               '>

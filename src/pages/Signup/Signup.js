@@ -1,23 +1,28 @@
 import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import PrimaryButton from '../../Shared/Buttons/PrimaryButton';
+import SmallSpinner from '../../Shared/Spinner/SmallSpinner';
 
 const Signup = () => {
     const { createUser, updateUser, verifyEmail, user, signInWithGithub, signInWithGoogle, loading, setLoading } = useContext(AuthContext)  
-    console.log(user)
-    console.log(process.env)
+    const navigate = useNavigate()
+    const location = useLocation()
+    let from = location?.state?.from?.pathname || '/';
     // sigInWithGoogle 
     const handleGoogleSignIn = () =>{
         signInWithGoogle()
         .then(res => {
             console.log("user result ",res.user)
+            setLoading(false)
             toast.success(`welcome ${res?.user?.displayName}`)
+            navigate(from , {replace: true})
 
         })
         .catch(err => {
             console.log(err.message)
+            setLoading(false)
             toast.error(err.message)
         })
     }
@@ -26,10 +31,13 @@ const Signup = () => {
         signInWithGithub()
         .then(res => {
             console.log(res.user);
+            setLoading(false)
             toast.success(`Welcome ${res?.user?.displayName}`)
+            navigate(from , {replace: true})
         })
         .catch(err => {
             toast.error(err.message)
+            setLoading(false)
             console.log(err)
         })
     }
@@ -64,6 +72,7 @@ const Signup = () => {
                         updateUser(name, photoUrl)
                             .then( () => {
                                 toast.success(`welcome ${result?.user?.displayName}`)
+                                setLoading(false)
                                 //email verification
                                 verifyEmail().then(()=>{
                                     toast.success("check your email for verification")
@@ -77,14 +86,17 @@ const Signup = () => {
                                 toast.error(err.message)
                             })
                             toast.success(`user created`)
+                            navigate(from , {replace: true})
                     })
                     .catch((err) => {
                         console.log(err.message);
+                        setLoading(false)
                         toast.error(err.message)
                     })
 
             }).catch(err => {
                 console.log(err.message)
+                setLoading(false)
                 toast.error(err.message)
             })
 
@@ -147,7 +159,7 @@ const Signup = () => {
                         <div>
                             <PrimaryButton type="submit"
                                 classes="w-full px-8 py-3 font-semibold rounded-md bg-gray-900 hover:bg-gray-700 hover:text-white text-gray-100">
-                                Sign up
+                                {loading ? <SmallSpinner></SmallSpinner> : 'Sign up'}
                             </PrimaryButton>
                         </div>
                     </div>

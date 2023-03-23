@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import {createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from 'firebase/auth'
+import {createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from 'firebase/auth'
 import app from '../Firebase/Firebase.config';
 export const AuthContext = createContext()
 const auth = getAuth(app)
@@ -8,7 +8,7 @@ const githubProvider = new GithubAuthProvider()
 const AuthProvider = ({children}) => {
   // state for sotre user 
     const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     
 
 
@@ -63,7 +63,11 @@ const login =(email, password)=>{
 
   return signInWithEmailAndPassword(auth, email, password)
 }
-
+// 7. reset password link 
+const resetPassword = (email) => {
+  setLoading(true)
+  return sendPasswordResetEmail(auth, email)
+}
     
     
     const authInfo = {
@@ -75,7 +79,10 @@ const login =(email, password)=>{
         verifyEmail, 
         logout, 
         login, 
-        signInWithGithub
+        signInWithGithub, 
+        loading, 
+        setLoading, 
+        resetPassword
     };
     return (
       <AuthContext.Provider value={authInfo}>

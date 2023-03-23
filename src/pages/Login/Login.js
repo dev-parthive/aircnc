@@ -1,20 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { setAuthToken } from '../../api/auth';
 import { AuthContext } from '../../contexts/AuthProvider';
 import PrimaryButton from '../../Shared/Buttons/PrimaryButton';
+import SmallSpinner from '../../Shared/Spinner/SmallSpinner';
 
 const Login = () => {
-    const {login, signInWithGoogle, signInWithGithub}  = useContext(AuthContext)
+    const {login, signInWithGoogle, signInWithGithub, loading, setLoading, resetPassword}  = useContext(AuthContext)
+    const [userEmail, setUserEmail ]= useState('')
+    console.log(process.env)
+    console.log('user email:' , userEmail)
+    const navigate = useNavigate()
+    const location = useLocation()
+    let from = location?.state?.from?.pathname || '/';
     //login using google 
     const handleGoogleLogin = () =>{
         signInWithGoogle()
         .then(res=> {
             console.log(res.user);
             toast.success(`Welcome ${res?.user?.displayName}`)
+            setLoading(false)
+            navigate(from, {replace: true})
         })
         .catch(err =>{
             console.log(err.message)
+            setLoading(false)
             toast.error(err.message)
         })
     }
@@ -24,25 +35,47 @@ const Login = () => {
         .then( res => {
             toast.success(`welcome ${res?.user?.displayName}`)
             console.log(res.user)
+            setLoading(false)
+            navigate(from, {replace: true})
         })
         .catch(err =>{
             console.log(err.message)
+            setLoading(false)
             toast.error(err.message)
         })
     }
     //login
     const handleLogin = (event)=>{
         event.preventDefault()
+        setLoading(true)
+
         const email = event.target.email.value
         const password= event.target.password.value
         console.log(email, password);
         login(email, password)
         .then(res => {
             console.log(res.user)
-            toast.success("Login successfull")
+            setLoading(false)
+            toast.success(`Welcome back ${res?.user?.displayName}`)
+            setAuthToken(res.user)
+            navigate(from , {replace: true})
 
         })
         .catch(err => {
+            toast.error(err.message)
+            setLoading(false)
+        })
+    }
+    //handle forgert password 
+    const handleForgetPassword = (email) =>{
+        const userEmail = window.prompt("Enter your email here")
+        resetPassword(userEmail)
+        .then(() =>{
+            toast.success("check your email for password reset link ")
+            setLoading(false)
+        })
+        .catch(err => {
+            setLoading(false)
             toast.error(err.message)
         })
     }
@@ -62,6 +95,7 @@ const Login = () => {
                             <label htmlFor="email" className='block mb-2 text-sm'>Email address</label>
                             <input type="email"
                                 //to get the email address
+                                // onBlur={(event)=>{setUserEmail(event.target.value)}}
                                 name='email'
                                 id='email'
                                 required
@@ -82,14 +116,16 @@ const Login = () => {
                     <div>
                         <PrimaryButton type="submit"
                             classes="w-full px-8 py-3 font-semibold rounded-md bg-gray-900 hover:bg-gray-700 hover:text-white text-gray-100">
-                            Login
+                            {
+                               loading ?   <SmallSpinner></SmallSpinner>  : 'Login' 
+                            }
                         </PrimaryButton>
                     </div>
 
                 </form>
 
                 <div className='space-y-1'>
-                        <button className='text-xs hover:underline text-gray-400'>
+                        <button onClick={handleForgetPassword} className='text-xs hover:underline text-gray-400'>
                             Forgot password?
                         </button>
                 </div>
