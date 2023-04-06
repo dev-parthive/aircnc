@@ -33,6 +33,7 @@ const verifyEmail = ()=>{
 //4. logout 
 const logout = ()=>{
   setLoading(true)
+  localStorage.removeItem('aircnc-token')
   return signOut(auth)
 }
   //GoogleSignIn

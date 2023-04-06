@@ -1,45 +1,50 @@
 import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { setAuthToken } from '../../api/auth';
 import { AuthContext } from '../../contexts/AuthProvider';
 import PrimaryButton from '../../Shared/Buttons/PrimaryButton';
 import SmallSpinner from '../../Shared/Spinner/SmallSpinner';
 
 const Signup = () => {
-    const { createUser, updateUser, verifyEmail, user, signInWithGithub, signInWithGoogle, loading, setLoading } = useContext(AuthContext)  
+    const { createUser, updateUser, verifyEmail, user, signInWithGithub, signInWithGoogle, loading, setLoading } = useContext(AuthContext)
     const navigate = useNavigate()
     const location = useLocation()
     let from = location?.state?.from?.pathname || '/';
     // sigInWithGoogle 
-    const handleGoogleSignIn = () =>{
+    const handleGoogleSignIn = () => {
         signInWithGoogle()
-        .then(res => {
-            console.log("user result ",res.user)
-            setLoading(false)
-            toast.success(`welcome ${res?.user?.displayName}`)
-            navigate(from , {replace: true})
+            .then(res => {
+                console.log("user result ", res.user)
+                setLoading(false)
+                toast.success(`welcome ${res?.user?.displayName}`)
+                 //get token and sent it to the server 
+                 setAuthToken(res.user)
+                navigate(from, { replace: true })
 
-        })
-        .catch(err => {
-            console.log(err.message)
-            setLoading(false)
-            toast.error(err.message)
-        })
+            })
+            .catch(err => {
+                console.log(err.message)
+                setLoading(false)
+                toast.error(err.message)
+            })
     }
     //github signIn 
-    const handleGithubSignIn = () =>{
+    const handleGithubSignIn = () => {
         signInWithGithub()
-        .then(res => {
-            console.log(res.user);
-            setLoading(false)
-            toast.success(`Welcome ${res?.user?.displayName}`)
-            navigate(from , {replace: true})
-        })
-        .catch(err => {
-            toast.error(err.message)
-            setLoading(false)
-            console.log(err)
-        })
+            .then(res => {
+                console.log(res.user);
+                setLoading(false)
+                toast.success(`Welcome ${res?.user?.displayName}`)
+                 //get token and sent it to the server 
+                 setAuthToken(res.user)
+                navigate(from, { replace: true })
+            })
+            .catch(err => {
+                toast.error(err.message)
+                setLoading(false)
+                console.log(err)
+            })
     }
     //signup 
     const signUpHandler = (event) => {
@@ -68,25 +73,27 @@ const Signup = () => {
                 createUser(email, password)
                     .then(result => {
                         console.log(result.user)
+                        //get token and sent it to the server 
+                        setAuthToken(result.user)
                         //update user 
                         updateUser(name, photoUrl)
-                            .then( () => {
+                            .then(() => {
                                 toast.success(`welcome ${result?.user?.displayName}`)
                                 setLoading(false)
                                 //email verification
-                                verifyEmail().then(()=>{
+                                verifyEmail().then(() => {
                                     toast.success("check your email for verification")
-                                }).catch(err =>{
-                                     console.log(err.message)
-                                     toast.error(err.message)
+                                }).catch(err => {
+                                    console.log(err.message)
+                                    toast.error(err.message)
                                 })
 
                             }).catch(err => {
                                 console.log(err.message)
                                 toast.error(err.message)
                             })
-                            toast.success(`user created`)
-                            navigate(from , {replace: true})
+                        toast.success(`user created`)
+                        navigate(from, { replace: true })
                     })
                     .catch((err) => {
                         console.log(err.message);

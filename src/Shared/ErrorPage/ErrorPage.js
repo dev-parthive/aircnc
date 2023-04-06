@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { HandThumbDownIcon } from '@heroicons/react/24/solid'
 import PrimaryButton from '../Buttons/PrimaryButton';
-import {HiOutlineHandThumbDown} from 'react-icons/hi2'
+
 const ErrorPage = () => {
     return (
         <section className='flex items-center h-screen p-16 bg-gray-100 text-gray-900'>
         <div className='container flex flex-col items-center justify-center px-5 mx-auto my-8'>
-       <HiOutlineHandThumbDown className='w-40 h-40 text-green-500'/>
+        <HandThumbDownIcon className='w-40 h-40 text-green-400' />
           <div className='max-w-md text-center'>
             <h2 className='mb-8 font-extrabold text-9xl text-gray-500'>
               <span className='sr-only'>Error</span>

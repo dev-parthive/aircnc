@@ -68,7 +68,7 @@ const Navbar = () => {
                                             </Link>
                                             <hr className='border-gray-200' />
 
-                                            <div onClick={()=>{ handleSignOut();setIsDropDownOpen(!isDropdownOpen); console.log("sign out button is clicked")}} className='flex items-center p-3 text-sm text-gray-600 capitalize
+                                            <div onClick={()=>{ setIsDropDownOpen(false); handleSignOut(); console.log("sign out button is clicked")}} className='flex items-center p-3 text-sm text-gray-600 capitalize
                                              duration-200 transform
                                               hover:bg-gray-100
                                               '>

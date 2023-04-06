@@ -21,6 +21,8 @@ const Login = () => {
             console.log(res.user);
             toast.success(`Welcome ${res?.user?.displayName}`)
             setLoading(false)
+              //get token and sent it to the server 
+              setAuthToken(res.user)
             navigate(from, {replace: true})
         })
         .catch(err =>{
@@ -36,6 +38,8 @@ const Login = () => {
             toast.success(`welcome ${res?.user?.displayName}`)
             console.log(res.user)
             setLoading(false)
+            //get token and sent it to the server 
+            setAuthToken(res.user)
             navigate(from, {replace: true})
         })
         .catch(err =>{
@@ -57,6 +61,7 @@ const Login = () => {
             console.log(res.user)
             setLoading(false)
             toast.success(`Welcome back ${res?.user?.displayName}`)
+            //get token and sent it to the server 
             setAuthToken(res.user)
             navigate(from , {replace: true})
 
