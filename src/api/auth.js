@@ -12,8 +12,12 @@ export const setAuthToken = user =>{
     })
     .then(res => res.json()).then(data => {
         console.log(data)
+        const userData = {
+            "aircnc-token" : data?.token,
+            "userEmail" : currentUser?.email
+        }
 
         //save the token in localstoreg
-        localStorage.setItem("aircnc-token", data?.token)
+        localStorage.setItem("user-info", JSON.stringify(userData))
     })
 }

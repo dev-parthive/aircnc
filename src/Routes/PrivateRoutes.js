@@ -1,20 +1,24 @@
 import React, { useContext } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
-import Spinner from '../Shared/Spinner/Spinner';
+import SmallLoadingSpinner from '../Shared/Spinner/SmallLoadingSpinner';
 
 const PrivateRoutes = ({children}) => {
     const {user, loading} = useContext(AuthContext)
     const location = useLocation()
+    const navigate = useNavigate()
     console.log(loading)
+    let from = location?.state?.from?.pathname || '/';
     if(loading){
-        return <Spinner></Spinner>
+        return <SmallLoadingSpinner></SmallLoadingSpinner>
     }
-    if(user && user.uid){
+    if(user ){
         return children
+    }else{
+        navigate(from , {replace: true})
     }
     return (
-        <Navigate to='/login' state={{from: location}} replace />
+        <></>
     );
 };
 

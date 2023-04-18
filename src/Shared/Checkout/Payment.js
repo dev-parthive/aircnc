@@ -1,9 +1,7 @@
 import React from 'react';
 
-const Payment = () => {
-    const handleBooking = () =>{
-        
-    }
+const Payment = ({handleBooking}) => {
+    
     return (
         <>
         <h1 className='text-2xl font-bold'>Payment Selection</h1>

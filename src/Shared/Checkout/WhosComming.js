@@ -6,6 +6,8 @@ const WhosComming = ({ setSelectedIndex,
     setBookingData,
 
 }) => {
+  console.log(bookingData)
+  
     return (
         <>
       <h1 className='text-2xl font-bold'>Traveling for work?</h1>
@@ -29,10 +31,10 @@ const WhosComming = ({ setSelectedIndex,
         className='border block my-5 p-2'
         placeholder={`Hello ${host?.name}! Cant wait to spend 4 night in your home`}
         name=''
-        value={bookingData.message}
-        onChange={event =>
-          setBookingData({ ...bookingData, message: event.target.value })
-        }
+        value={bookingData?.message}
+        onChange={event => {
+          setBookingData({...bookingData, message : event.target.value})
+        }}
         id=''
         cols='60'
         rows='10'

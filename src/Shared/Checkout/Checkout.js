@@ -5,9 +5,14 @@ import CheckoutCart from './CheckoutCart';
 import Payment from './Payment';
 import ReviewHouse from './ReviewHouse';
 import WhosComming from './WhosComming';
+import { saveBookings } from '../../api/bookingsApi';
+import { toast } from 'react-hot-toast';
 
 const Checkout = () => {
+  const userInfo =JSON.parse( localStorage.getItem('user-info'))
+  console.log(userInfo);
     const { user } = useContext(AuthContext)
+    console.log(user)
     const homeData = {
       _id: '60ehjhedhjdj3434',
       location: 'Dhaka, Bangladesh',
@@ -32,22 +37,14 @@ const Checkout = () => {
       hostEmail: homeData?.host?.email,
       message: '',
       totalPrice: parseFloat(homeData.price) + 31,
-      guestEmail: user?.email,
+      guestEmail: userInfo?.userEmail,
     })
     const [selectedIndex, setSelectedIndex] = useState(0)
     console.log('selected index value', selectedIndex)
     const handleBooking = () => {
       console.log(bookingData)
-  
-    //   saveBooking(bookingData)
-    //     .then(data => {
-    //       console.log(data)
-    //       toast.success('Booking Successful!')
-    //     })
-    //     .catch(err => {
-    //       console.log(err)
-    //       toast.error(err?.message)
-    //     })
+      saveBookings(bookingData)
+      
     }
   
     return (

@@ -11,7 +11,7 @@ const CheckoutCart = () => {
         
     <div className='px-6 py-5 md:w-1/2 lg:w-1/3 w-full h-full rounded-md shadow-lg'>
     <div className='flex justify-between'>
-      <div classNames='text-gray-900 text-xl title-font font-medium mb-2 w-1/2'>
+      <div classnames='text-gray-900 text-xl title-font font-medium mb-2 w-1/2'>
         {' '}
         Huge Apartment with 4 bedrooms
       </div>
@@ -40,21 +40,21 @@ const CheckoutCart = () => {
       <div>14/06/2022</div>
     </div>
 
-    <div classNames='flex border-t border-gray-200 py-2'>
-      <span classNames='text-gray-500'>$100 x {totalNights} nights</span>
-      <span classNames='ml-auto text-gray-900'>${sub_total}</span>
+    <div classnames='flex border-t border-gray-200 py-2'>
+      <span classnames='text-gray-500'>$100 x {totalNights} nights</span>
+      <span classnames='ml-auto text-gray-900'>${sub_total}</span>
     </div>
-    <div classNames='flex border-t border-gray-200 py-2'>
-      <span classNames='text-gray-500'>Cleaning Fee</span>
-      <span classNames='ml-auto text-gray-900'>$10</span>
+    <div classnames='flex border-t border-gray-200 py-2'>
+      <span classnames='text-gray-500'>Cleaning Fee</span>
+      <span classnames='ml-auto text-gray-900'>$10</span>
     </div>
-    <div classNames='flex border-t border-gray-200 py-2'>
-      <span classNames='text-gray-500'>Service Fee</span>
-      <span classNames='ml-auto text-gray-900'>$21</span>
+    <div classnames='flex border-t border-gray-200 py-2'>
+      <span classnames='text-gray-500'>Service Fee</span>
+      <span classnames='ml-auto text-gray-900'>$21</span>
     </div>
-    <div classNames='flex border-t border-b mb-6 border-gray-200 py-2'>
-      <span classNames='text-gray-900 font-bold'>Total</span>
-      <span classNames='ml-auto text-gray-900'>${total}</span>
+    <div classnames='flex border-t border-b mb-6 border-gray-200 py-2'>
+      <span classnames='text-gray-900 font-bold'>Total</span>
+      <span classnames='ml-auto text-gray-900'>${total}</span>
     </div>
   </div>
     );

@@ -48,6 +48,8 @@ const logout = ()=>{
   }
 //5. observer (je user login kora ase kina check korar jonno)
 useEffect(()=>{
+  setLoading(true)
+  //this part will execute once the component is mounted.
   const unSubscribe = onAuthStateChanged(auth, currentUser => {
     console.log(currentUser)
     setUser(currentUser)
@@ -56,6 +58,7 @@ useEffect(()=>{
   });
   console.log(user);
   return ()=> {
+     //this part will execute once the component is unmounted.
     return unSubscribe
   }
 }, [])
