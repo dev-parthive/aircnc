@@ -8,7 +8,7 @@ const PrivateRoutes = ({children}) => {
     const location = useLocation()
     const navigate = useNavigate()
     console.log(loading)
-    let from = location?.state?.from?.pathname || '/';
+    let from = location?.state?.from?.pathname || '/login';
     if(loading){
         return <SmallLoadingSpinner></SmallLoadingSpinner>
     }

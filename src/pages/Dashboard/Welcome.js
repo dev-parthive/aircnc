@@ -3,6 +3,7 @@ import { AuthContext } from '../../contexts/AuthProvider';
 
 const Welcome = () => {
     const {user} = useContext(AuthContext)
+    
     return (
         <div className='h-screen text-gray-700 flex flex-col justify-center items-center pb-16'>
         <div className='flex justify-center items-center'>
