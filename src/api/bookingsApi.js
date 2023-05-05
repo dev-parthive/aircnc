@@ -24,7 +24,7 @@ export const saveBookings = async (bookingData) => {
 }
 
 
-///get all bookings of an user's  
+///get all bookings of an user's   by email 
 
 export const getAllBookingsByEmail = async (email) => {
     try {
@@ -47,13 +47,7 @@ export const getAllBookings = async() =>{
         const url  = `${process.env.REACT_APP_API_URL}/bookings`
         const response = await fetch(url)
         const data = await response.json()
-        if(data){
-            return data?.data
-
-        }else{
-            
         return data
-        }
     }
     catch(err){
         console.log(err.message)
