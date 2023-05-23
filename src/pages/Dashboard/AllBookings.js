@@ -62,7 +62,7 @@ const AllBookings = () =>{
                 </tr>
               </thead>
               <tbody>
-               { bookings &&  bookings.map((booking, i)=>  <tr>
+               { bookings &&  bookings.map((booking, i)=>  <tr id={booking?._id}>
                   <td class='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                     <div class='flex items-center'>
                       <div class='flex-shrink-0'>
@@ -76,14 +76,14 @@ const AllBookings = () =>{
                       </div>
                       <div class='ml-3'>
                         <p class='text-gray-900 whitespace-no-wrap'>
-                          Jean marc
+                          {booking?.Name ? booking?.Name : "not found"}
                         </p>
                       </div>
                     </div>
                   </td>
                   <td class='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                     <p class='text-gray-900 whitespace-no-wrap'>
-                      Dhaka, Bangladesh
+                      {booking?.location}, Bangladesh
                     </p>
                   </td>
                   <td class='px-5 py-5 border-b border-gray-200 bg-white text-sm'>

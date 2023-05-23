@@ -16,6 +16,8 @@ import MyBookings from "../pages/Dashboard/MyBookings";
 import BecomeAHost from "../pages/Dashboard/BecomeAHost";
 import AllUsers from "../Components/Dashboard/AllUsers";
 import AllBookings from "../pages/Dashboard/AllBookings";
+import AddHome from "../pages/Dashboard/AddHome";
+
 
 const routes = createBrowserRouter([
     {
@@ -52,7 +54,8 @@ const routes = createBrowserRouter([
                 // element: <PrivateRoutes><Checkout></Checkout></PrivateRoutes>
                 element: <Checkout></Checkout>
 
-            },
+            }
+            
 
         ]
     },
@@ -79,7 +82,18 @@ const routes = createBrowserRouter([
             {
                 path: 'all-bookings', 
                 element: <PrivateRoutes><AllBookings></AllBookings></PrivateRoutes>
+            }, 
+            {
+                path: 'add-home', 
+                element: (
+                    <PrivateRoutes>
+                            <AddHome></AddHome>
+                    </PrivateRoutes>
+
+                )
             }
+       
+       
 
         ]
 
