@@ -17,6 +17,8 @@ import BecomeAHost from "../pages/Dashboard/BecomeAHost";
 import AllUsers from "../Components/Dashboard/AllUsers";
 import AllBookings from "../pages/Dashboard/AllBookings";
 import AddHome from "../pages/Dashboard/AddHome";
+import Allhomes from "../Shared/Allhomes/Allhomes";
+import ManageHome from "../pages/Dashboard/ManageHome";
 
 
 const routes = createBrowserRouter([
@@ -36,6 +38,10 @@ const routes = createBrowserRouter([
             {
                 path: '/signup',
                 element: <Signup></Signup>
+            },
+            {
+                path: 'all-homes', 
+                element: <Allhomes></Allhomes>
             },
             {
                 path: '/comming-soon',
@@ -91,6 +97,10 @@ const routes = createBrowserRouter([
                     </PrivateRoutes>
 
                 )
+            }, 
+            {
+                path: 'manage-homes', 
+                element: <ManageHome></ManageHome>
             }
        
        

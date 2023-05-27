@@ -62,7 +62,7 @@ const AllBookings = () =>{
                 </tr>
               </thead>
               <tbody>
-               { bookings &&  bookings.map((booking, i)=>  <tr id={booking?._id}>
+               { bookings &&  bookings.map((booking, i)=>  <tr key={i} id={booking?._id}>
                   <td class='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                     <div class='flex items-center'>
                       <div class='flex-shrink-0'>

@@ -2,6 +2,7 @@ import { CalendarIcon } from '@heroicons/react/24/solid';
 import './AddServiceForm.css'
 import React from 'react';
 import ReactDatePicker from 'react-datepicker';
+import SmallSpinner from '../../Shared/Spinner/SmallSpinner';
 
 const AddServiceForm = ({
     handleSubmit,
@@ -9,6 +10,8 @@ const AddServiceForm = ({
     setArrivalDate,
     departureDate,
     setDepartureDate,
+    loading,
+    setLoading
 }) => {
 
     return (
@@ -117,7 +120,7 @@ const AddServiceForm = ({
                         </div>
                         {/* save & countinue button  */}
                         <button   type='submit' className='block w-full p-3 text-center font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-gradient-to-r from-emerald-500 to-lime-500 hover:bg-gray-200 hover:text-gray-700 focus:shadow-lg focus:outline-none'>
-                            Submit
+                            {loading ? (<SmallSpinner></SmallSpinner>) : 'save & continue'}
                         </button>
 
 

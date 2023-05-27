@@ -30,7 +30,8 @@ const Task = () =>{
 
         {
             countries.map((item, index)=>{
-                return<option  value={index}>{item.name}</option>
+                return<option key={index
+                }  value={index}>{item.name}</option>
 
             })
         }
@@ -40,7 +41,8 @@ const Task = () =>{
 
         {
             countries[country]?.cities.map((city , index)=>{
-                return <option value={city}>
+                return <option key={index
+                } value={city}>
                    {city}
                 </option>
             })

@@ -1,3 +1,6 @@
+import axios from 'axios'
+
+
 // Host request 
 export const hostRequest = async(hostData) =>{
     console.log(hostData)
@@ -31,6 +34,8 @@ export const getAllUsers = async() =>{
     const users = await response.json()
     return users
 }
+
+
 
 // Make a host  
 

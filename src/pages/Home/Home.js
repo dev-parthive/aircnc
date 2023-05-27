@@ -10,6 +10,7 @@ import Spinner from '../../Shared/Spinner/Spinner';
 const Home = () => {
     const [loading, setLoading] = useState(false)
     const [allExp, setAllExp] = useState([])
+    const [homes, setHomes] = useState([])
     useEffect(() => {
         fetch('expdata.json')
             .then(res => res.json())
@@ -29,7 +30,7 @@ const Home = () => {
                 <div className=''>
                     <div className='flex justify-between px-4 mt-10'>
                         <p className='text-xl font-bold'>Homes</p>
-                        <Link to='/comming-soon'>
+                        <Link to='/all-homes'>
                             <p>See all</p>
 
                         </Link>
