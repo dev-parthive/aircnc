@@ -6,17 +6,23 @@ import SearchForms from '../../Components/Forms/SearchForms';
 import CommingSoon from '../../Shared/CommingSoon/CommingSoon';
 import SmallSpinner from '../../Shared/Spinner/SmallSpinner';
 import Spinner from '../../Shared/Spinner/Spinner';
+import { getAllHome } from '../../api/services';
 
 const Home = () => {
     const [loading, setLoading] = useState(false)
     const [allExp, setAllExp] = useState([])
     const [homes, setHomes] = useState([])
     useEffect(() => {
+        setLoading(true)
+        getAllHome()
+        .then(data => setHomes(data))
+        .catch(err => console.log(err))
         fetch('expdata.json')
             .then(res => res.json())
             .then(data => {
                 console.log(data)
                 setAllExp(data)
+                setLoading(false)
             })
     }, [])
     return (
@@ -25,7 +31,11 @@ const Home = () => {
             <SearchForms></SearchForms>
              </div>
       
-            <div className='flex-1'>
+            {
+                loading ? (<Spinner></Spinner>)
+                 : 
+                 
+                (<div className='flex-1'>
                 {/* Home card  */}
                 <div className=''>
                     <div className='flex justify-between px-4 mt-10'>
@@ -40,7 +50,7 @@ const Home = () => {
                 '>
                         <div className='flex flex-wrap'>
                             {
-                                [...Array(3)].map((expCard, i) => <HomeCard cardData={expCard} key={i}></HomeCard>)
+                                homes.slice(0,3).map((home, i) => <HomeCard home={home} key={i}></HomeCard>)
                             }
                         </div>
                     </div>
@@ -68,7 +78,8 @@ const Home = () => {
                     </div>
 
                 </div>
-            </div>
+            </div>)
+            }
         </div>
     );
 };

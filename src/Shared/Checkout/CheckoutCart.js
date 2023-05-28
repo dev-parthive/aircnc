@@ -2,7 +2,8 @@ import React from 'react';
 import { ArrowRightIcon, StarIcon } from '@heroicons/react/24/solid'
 import { Link } from 'react-router-dom';
 
-const CheckoutCart = () => {
+const CheckoutCart = ({homeData}) => {
+  console.log( 'Home data', homeData)
   
     let totalNights = 2
     let sub_total = 150
