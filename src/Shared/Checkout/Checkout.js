@@ -1,6 +1,5 @@
 import { Tab } from '@headlessui/react';
 import React, { Fragment, useContext, useState } from 'react';
-import { AuthContext } from '../../contexts/AuthProvider';
 import CheckoutCart from './CheckoutCart';
 import Payment from './Payment';
 import ReviewHouse from './ReviewHouse';
@@ -8,24 +7,34 @@ import WhosComming from './WhosComming';
 import { saveBookings } from '../../api/bookingsApi';
 import { toast } from 'react-hot-toast';
 import { useLocation } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const Checkout = () => {
   const userInfo =JSON.parse( localStorage.getItem('user-info'))
   console.log(userInfo);
-    const { user } = useContext(AuthContext)
+   const {user} = useContext(AuthContext)
     const {state: CheckoutData} = useLocation()
     console.log('use Location: ',CheckoutData)
     console.log(user)
    
-    const [bookingData, setBookingData] = useState({
-      homeId: CheckoutData._id,
-      hostEmail: CheckoutData?.host?.email,
-      message: '',
-      totalPrice: parseFloat(CheckoutData.price) + 31,
-      guestEmail: userInfo?.userEmail,
-    })
+  const [bookingData, setBookingData] = useState({
+    home:{
+      id: CheckoutData?.homeData?._id ,
+      image : CheckoutData?.homeData?.image, 
+      title: CheckoutData?.homeData?.title,
+      location: CheckoutData?.homeData?.from, 
+      to: CheckoutData?.homeData?.to
+
+    }, 
+    host : {
+      hostEmail: CheckoutData?.homeData?.host?.email,
+      comment: '', 
+      price: parseFloat(CheckoutData?.totalPrice), 
+      guestEmail: user?.email
+    }
+  })
+    console.log("Booking data",bookingData)
     const [selectedIndex, setSelectedIndex] = useState(0)
-    console.log('selected index value', selectedIndex)
     const handleBooking = () => {
       console.log(bookingData)
       saveBookings(bookingData)
@@ -110,7 +119,7 @@ const Checkout = () => {
               {/* WhosComing Comp */}
               <WhosComming
                 setSelectedIndex={setSelectedIndex}
-                host={CheckoutData?.host}
+                host={CheckoutData?.homeData?.host}
                 bookingData={bookingData}
                 setBookingData={setBookingData}
               />

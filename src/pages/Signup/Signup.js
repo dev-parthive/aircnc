@@ -17,7 +17,7 @@ const Signup = () => {
             .then(res => {
                 console.log("user result ", res.user)
                 setLoading(false)
-                toast.success(`welcome ${res?.user?.displayName}`)
+                toast.success(`SignUp successfull`)
                  //get token and sent it to the server 
                  setAuthToken(res.user)
                 navigate(from, { replace: true })

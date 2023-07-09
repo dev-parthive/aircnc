@@ -7,11 +7,14 @@ import {
   UserGroupIcon,
 
 } from '@heroicons/react/24/solid'
-import { format } from 'date-fns';
+import { differenceInCalendarDays, format, toDate } from 'date-fns';
 
 const ReviewHouse = ({setSelectedIndex, homeData}) => {
-  console.log(format(new Date(homeData?.from), 'cccc'))
-  console.log(homeData)
+  const from = new Date(FormData?.from)
+  const to = new Date(homeData?.to)
+  const differenceBetweenDate = differenceInCalendarDays(to, from)
+  console.log('date difference',differenceBetweenDate)
+  console.log('Home Data From review house ', homeData)
     return (
         <>
         <h1 className='text-gray-900 title-font text-4xl font-medium'>

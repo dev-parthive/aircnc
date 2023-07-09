@@ -1,12 +1,13 @@
 import React from 'react';
 
-const WhosComming = ({ setSelectedIndex,
+const WhosComming = ({
+   setSelectedIndex,
     host, 
     bookingData, 
     setBookingData,
 
 }) => {
-  console.log(bookingData)
+  console.log("Booking data : ",bookingData)
   
     return (
         <>

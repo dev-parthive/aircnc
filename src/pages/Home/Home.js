@@ -9,6 +9,7 @@ import Spinner from '../../Shared/Spinner/Spinner';
 import { getAllHome } from '../../api/services';
 
 const Home = () => {
+    console.log('Firebase domain',process.env.REACT_APP_authDomain)
     const [loading, setLoading] = useState(false)
     const [allExp, setAllExp] = useState([])
     const [homes, setHomes] = useState([])
