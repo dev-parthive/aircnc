@@ -24,22 +24,18 @@ export const saveBookings = async (bookingData) => {
 }
 
 
-///get all bookings of an user's   by email 
+///get all bookings of an user   by email 
 
 export const getAllBookingsByEmail = async (email) => {
-    try {
-        const url = `${process.env.REACT_APP_API_URL}/bookings?email=${email}`
-        const response = await fetch(url)
-        const data = await response.json()
-        if(data){
-            return data?.data;
-        }else{
-            return data
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/bookings?email=${email}` , {
+        method: 'GET', 
+        headers: {
+            'content-type': 'application/json'
         }
     }
-    catch (err) {
-        toast.error(err.message)
-    }
+    )
+    const bookings = await response.json()
+    return bookings
 }
 // get all bookings for admin 
 export const getAllBookings = async() =>{
@@ -54,4 +50,5 @@ export const getAllBookings = async() =>{
     }
 
 } 
+//
 //cancle a bookings 

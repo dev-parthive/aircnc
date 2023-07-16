@@ -26,12 +26,11 @@ const Checkout = () => {
       to: CheckoutData?.homeData?.to
 
     }, 
-    host : {
       hostEmail: CheckoutData?.homeData?.host?.email,
       comment: '', 
       price: parseFloat(CheckoutData?.totalPrice), 
       guestEmail: user?.email
-    }
+    
   })
     console.log("Booking data",bookingData)
     const [selectedIndex, setSelectedIndex] = useState(0)

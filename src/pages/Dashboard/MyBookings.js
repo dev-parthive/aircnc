@@ -11,18 +11,16 @@ const MyBookings = () => {
   const [loading, setLoading] = useState(false)
   const [bookings, setBookings] = useState([])
 
-  useEffect(() => {
-    setLoading(true)
-    getAllBookingsByEmail(user?.email)
-      .then(data => {
-        setBookings(data)
-        setLoading(false)
-      })
-      .catch(err => {
-        console.log(err)
-        setLoading(false)
-      })
-  }, [user])
+const fetchBookings = () => getAllBookingsByEmail(user?.email).then(data => {setBookings(data)
+  setLoading(false)
+})
+
+
+useEffect(() => {
+  setLoading(true)
+  fetchBookings()
+
+}, [user])
 
   console.log(bookings)
     return (
